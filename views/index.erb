@@ -3,11 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt #2</title>
-    <link rel="stylesheet" type="text/css" href="/style.css?<%=Time.now.to_i%>">
+    <title>Angel Slots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Webbserverprogrammering 1 - Projekt 3 - mall</h1>
-  <img src="/img/glhf.png">
+    <header>
+        <h1>Angel Slots</h1>
+        <div class="buttons">
+            <button id="accountBtn">My Account</button>
+            <button id="depositBtn">Deposit Funds</button>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="slot-machine">
+            <div class="display">
+                <div class="tile"><image src="img/wild.png"></image></div>
+                <div class="tile"><image src="img/cross4.png"></image></div>
+                <div class="tile"><image src="img/star2.png"></image></div>
+                <div class="tile"><image src="img/halo_wings.png"></image></div>
+                <div class="tile"><image src="img/hjarta3.png"></image></div>
+                <div class="tile"><image src="img/cross3.png"></image></div>
+                <div class="tile"><image src="img/eliot.png"></image></div>
+                <div class="tile"><image src="img/moln2.png"></image></div>
+                <div class="tile"><image src="img/nun.png"></image></div>
+                <div class="tile"><image src="img/moln.png"></image></div>
+                <div class="tile"><image src="img/halo.png"></image></div>
+                <div class="tile"><image src="img/cross2.png"></image></div>
+                <div class="tile"><image src="img/cross.png"></image></div>
+                <div class="tile"><image src="img/wings.jpg"></image></div>
+                <div class="tile"><image src="img/wild.png"></image></div>
+                
+    
+            </div>
+            <div class="controls">
+            <% @stat_list = []%>
+                <% @stats.each do |stat| %>
+                    <% @stat_list.append(stat["chans"])%>
+                <% end %>
+
+                <button onclick="randomizer(<%= @stat_list %>)">Spin</button>
+                <button>Max Bet</button>
+            </div>
+            <div class="info">
+                <div>
+                    <strong>Bet:</strong>
+                    <p id="bet">$0</p>
+                </div>
+                <div>
+                    <strong>Win:</strong>
+                    <p id="win">$0</p>
+                </div>
+                <div>
+                    <strong>Balance:</strong>
+                    <p id="balance">$100</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <<div class="modal-overlay" id="modalOverlay"></div>
+
+    <div class="modal" id="depositModal">
+        <h3>Deposit Funds</h3>
+        <input type="number" placeholder="Enter amount" id="depositAmount">
+        <button id="confirmDeposit">Confirm</button>
+        <button id="closeModal">Cancel</button>
+    </div>
+
+
+<script src="script.js"></script>
 </body>
 </html>
