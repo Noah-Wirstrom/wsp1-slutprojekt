@@ -1,4 +1,5 @@
 require 'sqlite3'
+require 'bcrypt'
 
 class Seeder
 
@@ -31,15 +32,17 @@ class Seeder
 
 
   def self.populate_tables
-    db.execute('INSERT INTO users(username, password, balance) VALUES("admin", "admin", 10000)')
-    db.execute('INSERT INTO users(username, password, balance) VALUES("user", "user", 10000)')
+    bcrypt_password = BCrypt::Password.create('admin')
+    db.execute('INSERT INTO users(username, password, balance) VALUES("admin", ?, 10000)', [bcrypt_password])
+    bcrypt_password1 = BCrypt::Password.create('user')
+    db.execute('INSERT INTO users(username, password, balance) VALUES("user", ?, 10000)',[bcrypt_password1])
 
-    db.execute('INSERT INTO stats(name, chans) VALUES("apple", 250)')
-    db.execute('INSERT INTO stats(name, chans) VALUES("grape", 450)')
-    db.execute('INSERT INTO stats(name, chans) VALUES("lemon", 600)')
-    db.execute('INSERT INTO stats(name, chans) VALUES("cherry", 725)')
-    db.execute('INSERT INTO stats(name, chans) VALUES("melon", 825)')
-    db.execute('INSERT INTO stats(name, chans) VALUES("pinapple", 900)')
+    db.execute('INSERT INTO stats(name, chans) VALUES("cross", 250)')
+    db.execute('INSERT INTO stats(name, chans) VALUES("heart", 450)')
+    db.execute('INSERT INTO stats(name, chans) VALUES("star", 600)')
+    db.execute('INSERT INTO stats(name, chans) VALUES("cloud", 725)')
+    db.execute('INSERT INTO stats(name, chans) VALUES("wing", 825)')
+    db.execute('INSERT INTO stats(name, chans) VALUES("nun", 900)')
     db.execute('INSERT INTO stats(name, chans) VALUES("wild", 1000)')
 
   end

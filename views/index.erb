@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="body_main">
     <header>
         <h1>Angel Slots</h1>
         <div class="buttons">
@@ -119,17 +119,17 @@
                 <button>Max Bet</button>
             </div>
             <div class="info">
-                <div>
+                <div class = "info_bla">
                     <strong>Bet:</strong>
                     <p id="bet">$0</p>
                 </div>
-                <div>
+                <div class="info_bla">
                     <strong>Win:</strong>
                     <p id="win">$0</p>
                 </div>
-                <div>
+                <div class="info_bla">
                     <strong>Balance:</strong>
-                    <p id="balance">$100</p>
+                    <p id="balance"> $<%=@balance%></p>
             </div>
         </div>
     </section>
