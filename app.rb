@@ -30,6 +30,7 @@ class App < Sinatra::Base
     get '/slot' do
         @stats= db.execute('SELECT chans FROM stats')
         @balance = session[:user]['balance']
+        
         erb(:"index")
     end
 
@@ -54,6 +55,39 @@ class App < Sinatra::Base
   
         redirect('/login')
     end
+
+
+    get '/register' do
+        erb(:register)
+    end
     
+
+    post '/register' do 
+        user = db.execute('SELECT * FROM users WHERE username=?',[params[:username]])
+
+        if user.empty?
+          
+            bcrypt_password= BCrypt::Password.create(params[:password])
+           db.execute('INSERT INTO users(username, password, balance) VALUES(?, ?, 0)',  [params[:username] , bcrypt_password])  
+
+        end
+        redirect('/login')
+    end
+
+    post '/:user/updateBalance' do
+        content_type :json
+        user = User.find_by(id: params[:id]) #??
+        if user 
+            request_payload = JSON.parse(request.body.read)
+            user.update(balance: request_payload["balance"])
+            { success: true, message: "Balance updated", user: user }.to_json
+        else
+            { success: false, message: "User not found" }.to_json
+        end
+    end
+
+
+
+
 
 end

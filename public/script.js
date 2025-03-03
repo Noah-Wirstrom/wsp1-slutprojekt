@@ -39,7 +39,7 @@ confirmDeposit.addEventListener('click', () => {
     }
 });
 
-function randomizer(stats){
+function randomizer(stats, user_id, balance){
     var max = 1000;
     const tiles = document.getElementsByClassName("tile");
     const parent =document.getElementsByClassName("slot-machine");
@@ -78,7 +78,7 @@ function randomizer(stats){
         tile.querySelector('img').src = `img/${symbol}`;
     }
     spin_animation();
-    check_win();
+    check_win(user_id, balance);
 }
 
 function spin_animation(){
@@ -113,7 +113,7 @@ function spin_animation(){
     }
 } 
 
-function check_win() {
+function check_win(user_id, balance) {
     const containers = document.getElementsByClassName("display");
     console.log(containers);
     let win = 0;
@@ -203,13 +203,37 @@ function check_win() {
                     } else if (win_tiles == 4) {
                         win += 120;
                     } else if (win_tiles == 5) {
-                        win += 300;
+                        win += 16300;
                     }
                 }
             }
     }
+    
     console.log(win);
     setTimeout (() => {
         document.getElementById("win").innerHTML = `$${win}`;
     }, 4700);
+    update_balance(user_id, balance);
+}
+
+function update_balance(user_id, newBalance){
+    console.log("hejehj")
+
+    fetch(`/${user_id}/updateBalance`,{
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({balance: newBalance})
+    )}
+    .then(response => response.json()) 
+    .then(data => {
+        if (data.success){
+            console.log(data);
+            document.getElementById('balance').innerHTML = `Balance:$${data.balance}`; 
+        } else{
+            console.error("Error updating balance", data.message);
+        }
+    });
+
 }
