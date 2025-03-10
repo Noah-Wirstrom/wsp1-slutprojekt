@@ -28,6 +28,7 @@ class App < Sinatra::Base
     end
 
     get '/slot' do
+        redirect '/login' if session[:user].nil?
         @stats= db.execute('SELECT chans FROM stats')
         @balance = session[:user]['balance']
         
@@ -76,7 +77,9 @@ class App < Sinatra::Base
 
     post '/:user/updateBalance' do
         content_type :json
-        user = User.find_by(id: params[:id]) #??
+        user = db.execute('SELECT * FROM users WHERE id=?', params[:user]).first
+        
+    
         if user 
             request_payload = JSON.parse(request.body.read)
             user.update(balance: request_payload["balance"])
@@ -84,8 +87,8 @@ class App < Sinatra::Base
         else
             { success: false, message: "User not found" }.to_json
         end
-    end
 
+    end
 
 
 

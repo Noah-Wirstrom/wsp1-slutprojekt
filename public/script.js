@@ -39,41 +39,42 @@ confirmDeposit.addEventListener('click', () => {
     }
 });
 
-function randomizer(stats, user_id, balance){
+function randomizer(stats, user_id, balance) {
+    
     var max = 1000;
     const tiles = document.getElementsByClassName("tile");
-    const parent =document.getElementsByClassName("slot-machine");
+    const parent = document.getElementsByClassName("slot-machine");
 
 
-    for(const tile of tiles){
-        if(tile.parentElement==parent[0].children[0]){
-            max=stats[5];
-        }else{
-            max=1000;
+    for (const tile of tiles) {
+        if (tile.parentElement == parent[0].children[0]) {
+            max = stats[5];
+        } else {
+            max = 1000;
         }
 
         var x = Math.floor(Math.random() * max);
 
-      
-        
-        if(x<stats[0]){
+
+
+        if (x < stats[0]) {
             symbol = "cross4.png";
-        } else if (x<stats[1]){
+        } else if (x < stats[1]) {
             symbol = "hjarta4.png";
-        } else if (x<stats[2]){
+        } else if (x < stats[2]) {
             symbol = "star3.png";
-        } else if (x<stats[3]){
+        } else if (x < stats[3]) {
             symbol = "moln2.png";
-        } else if (x<stats[4]){
+        } else if (x < stats[4]) {
             symbol = "wings.jpg";
-        } else if (x<stats[5]){
+        } else if (x < stats[5]) {
             symbol = "nun.png";
         } else {
             symbol = "wild.png";
         }
 
 
-        
+
 
         tile.querySelector('img').src = `img/${symbol}`;
     }
@@ -81,17 +82,17 @@ function randomizer(stats, user_id, balance){
     check_win(user_id, balance);
 }
 
-function spin_animation(){
-    const displays=document.getElementsByClassName("display");
-    const tile_height= document.querySelector(".tile").offsetHeight;
-    const total_tiles= document.querySelectorAll(".tile").length/5;
+function spin_animation() {
+    const displays = document.getElementsByClassName("display");
+    const tile_height = document.querySelector(".tile").offsetHeight;
+    const total_tiles = document.querySelectorAll(".tile").length / 5;
 
     console.log(tile_height);
     console.log(total_tiles);
 
-    let totalscroll =tile_height*(total_tiles-4);
-    let delay=0;
-    let spin_time=(1600);
+    let totalscroll = tile_height * (total_tiles - 4);
+    let delay = 0;
+    let spin_time = (1600);
 
     for (const column of displays) {
         column.style.transition = 'none'; // Disable transition
@@ -111,7 +112,7 @@ function spin_animation(){
         delay += 400;
 
     }
-} 
+}
 
 function check_win(user_id, balance) {
     const containers = document.getElementsByClassName("display");
@@ -121,10 +122,10 @@ function check_win(user_id, balance) {
     let win_array2 = [];
     let win_array3 = [];
 
-    const win_window=document.getElementById("win");
-    win_window.innerHTML="";
+    const win_window = document.getElementById("win");
+    win_window.innerHTML = "";
 
-    for (const container of containers) {   
+    for (const container of containers) {
         console.log(container);
         win_array1.push(container.children[11]);
         win_array2.push(container.children[12]);
@@ -132,108 +133,108 @@ function check_win(user_id, balance) {
     }
 
     let win_arrays = [win_array1, win_array2, win_array3];
-    
+
     for (const win_array of win_arrays) {
         let win_tiles = 0;
-        for(let i = 0; i < win_array.length; i++) {   
+        for (let i = 0; i < win_array.length; i++) {
             if (win_array[i].querySelector('img').src.endsWith("wild.png")) {
                 win_array[i].innerHTML = win_array[0].innerHTML;
-                setTimeout (() => {
+                setTimeout(() => {
                     win_array[i].querySelector('img').src = `img/wild.png`;
                 }, 10);
             }
         }
-            if (win_array[0].innerHTML === win_array[1].innerHTML && win_array[1].innerHTML === win_array[2].innerHTML) {
-                win_tiles = 3;
-                if (win_array[0].innerHTML === win_array[3].innerHTML) {
-                    win_tiles = 4;
-                    if (win_array[0].innerHTML === win_array[4].innerHTML) {
-                        win_tiles = 5;
-                    }
+        if (win_array[0].innerHTML === win_array[1].innerHTML && win_array[1].innerHTML === win_array[2].innerHTML) {
+            win_tiles = 3;
+            if (win_array[0].innerHTML === win_array[3].innerHTML) {
+                win_tiles = 4;
+                if (win_array[0].innerHTML === win_array[4].innerHTML) {
+                    win_tiles = 5;
                 }
             }
-            if (win_tiles > 0) {
-                if (win_array[0].querySelector('img').src.endsWith("cross4.png")) {
-                    if (win_tiles == 3) {
-                        win += 10;
-                    } else if (win_tiles == 4) {
-                        win += 20;
-                    } else if (win_tiles == 5) {
-                        win += 50;
-                    }
-                } else if (win_array[0].querySelector('img').src.endsWith("hjarta4.png")) {
-                    if (win_tiles == 3) {
-                        win += 20;
-                    } else if (win_tiles == 4) {
-                        win += 40;
-                    } else if (win_tiles == 5) {
-                        win += 100;
-                    }
-                } else if (win_array[0].querySelector('img').src.endsWith("star3.png")) {
-                    console.log("win");
-                    if (win_tiles == 3) {
-                        win += 30;
-                    } else if (win_tiles == 4) {
-                        win += 60;
-                    } else if (win_tiles == 5) {
-                        win += 150;
-                    }
-                } else if (win_array[0].querySelector('img').src.endsWith("moln2.png")) {
-                    console.log("win");
-                    if (win_tiles == 3) {
-                        win += 40;
-                    } else if (win_tiles == 4) {
-                        win += 80;
-                    } else if (win_tiles == 5) {
-                        win += 200;
-                    }
-                } else if (win_array[0].querySelector('img').src.endsWith("wings.jpg")) {
-                    console.log("win");
-                    if (win_tiles == 3) {
-                        win += 50;
-                    } else if (win_tiles == 4) {
-                        win += 100;
-                    } else if (win_tiles == 5) {
-                        win += 250;
-                    }
-                } else if (win_array[0].querySelector('img').src.endsWith("nun.png")) {
-                    console.log("win");
-                    if (win_tiles == 3) {
-                        win += 60;
-                    } else if (win_tiles == 4) {
-                        win += 120;
-                    } else if (win_tiles == 5) {
-                        win += 16300;
-                    }
+        }
+        if (win_tiles > 0) {
+            if (win_array[0].querySelector('img').src.endsWith("cross4.png")) {
+                if (win_tiles == 3) {
+                    win += 10;
+                } else if (win_tiles == 4) {
+                    win += 20;
+                } else if (win_tiles == 5) {
+                    win += 50;
+                }
+            } else if (win_array[0].querySelector('img').src.endsWith("hjarta4.png")) {
+                if (win_tiles == 3) {
+                    win += 20;
+                } else if (win_tiles == 4) {
+                    win += 40;
+                } else if (win_tiles == 5) {
+                    win += 100;
+                }
+            } else if (win_array[0].querySelector('img').src.endsWith("star3.png")) {
+                console.log("win");
+                if (win_tiles == 3) {
+                    win += 30;
+                } else if (win_tiles == 4) {
+                    win += 60;
+                } else if (win_tiles == 5) {
+                    win += 150;
+                }
+            } else if (win_array[0].querySelector('img').src.endsWith("moln2.png")) {
+                console.log("win");
+                if (win_tiles == 3) {
+                    win += 40;
+                } else if (win_tiles == 4) {
+                    win += 80;
+                } else if (win_tiles == 5) {
+                    win += 200;
+                }
+            } else if (win_array[0].querySelector('img').src.endsWith("wings.jpg")) {
+                console.log("win");
+                if (win_tiles == 3) {
+                    win += 50;
+                } else if (win_tiles == 4) {
+                    win += 100;
+                } else if (win_tiles == 5) {
+                    win += 250;
+                }
+            } else if (win_array[0].querySelector('img').src.endsWith("nun.png")) {
+                console.log("win");
+                if (win_tiles == 3) {
+                    win += 60;
+                } else if (win_tiles == 4) {
+                    win += 120;
+                } else if (win_tiles == 5) {
+                    win += 16300;
                 }
             }
+        }
     }
-    
+
     console.log(win);
-    setTimeout (() => {
+    setTimeout(() => {
         document.getElementById("win").innerHTML = `$${win}`;
     }, 4700);
     update_balance(user_id, balance);
 }
 
-function update_balance(user_id, newBalance){
-    console.log("hejehj")
+function update_balance(user_id, newBalance) {
 
-    fetch(`/${user_id}/updateBalance`,{
-        method:'POST',
-        headers:{
+    fetch(`/${user_id}/updateBalance`, {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json'
         },
-        body:JSON.stringify({balance: newBalance})
-    )}
-    .then(response => response.json()) 
-    .then(data => {
-        if (data.success){
-            console.log(data);
-            document.getElementById('balance').innerHTML = `Balance:$${data.balance}`; 
-        } else{
-            console.error("Error updating balance", data.message);
+        body: JSON.stringify({ balance: newBalance })
+    })
+        console.log("hehe")
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(data);
+                document.getElementById('balance').innerHTML = `Balance:$${data.balance}`;
+            } else {
+                console.error("Error updating balance", data.message);
+            }
         }
-    });
-
-}
+        )
+    }

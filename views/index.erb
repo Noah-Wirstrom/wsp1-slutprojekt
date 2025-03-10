@@ -115,7 +115,7 @@
                     <% @stat_list.append(stat["chans"])%>
                 <% end %>
 
-                <button onclick="randomizer(<%= @stat_list %>,<%= session[:user]["id"] %>,<%=session[:user]["balance"] %>)">Spin</button>
+                <button onclick="randomizer(<%= @stat_list %>,<%= session[:user]['id'] %>,<%= @balance %>)">Spin</button>
                 <button>Max Bet</button>
             </div>
             <div class="info">
