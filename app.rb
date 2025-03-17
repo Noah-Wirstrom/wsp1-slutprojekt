@@ -61,6 +61,11 @@ class App < Sinatra::Base
     get '/register' do
         erb(:register)
     end
+
+    get '/logout' do
+        session[:user] = nil
+        redirect('/login')
+    end
     
 
     post '/register' do 
@@ -75,15 +80,16 @@ class App < Sinatra::Base
         redirect('/login')
     end
 
-    post '/:user/updateBalance' do
+    post '/updateBalance' do
         content_type :json
-        user = db.execute('SELECT * FROM users WHERE id=?', params[:user]).first
+        request_payload = JSON.parse(request.body.read)
+        user = db.execute('SELECT * FROM users WHERE id=?', [session[:user]["id"]]).first
+        balance = user['balance'] + request_payload["winamount"] - request_payload["bet"]
         
     
         if user 
-            request_payload = JSON.parse(request.body.read)
-            user.update(balance: request_payload["balance"])
-            { success: true, message: "Balance updated", user: user }.to_json
+            db.execute('UPDATE users SET balance = ? WHERE id = ?', [balance, session[:user]["id"]]) 
+            { success: true, message: "Balance updated", balance: balance }.to_json
         else
             { success: false, message: "User not found" }.to_json
         end

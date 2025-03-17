@@ -39,20 +39,20 @@ confirmDeposit.addEventListener('click', () => {
     }
 });
 
-function randomizer(stats, user_id, balance) {
+function randomizer(stats) {
     
     var max = 1000;
     const tiles = document.getElementsByClassName("tile");
     const parent = document.getElementsByClassName("slot-machine");
 
-
+    console.log(stats[5]);
     for (const tile of tiles) {
         if (tile.parentElement == parent[0].children[0]) {
             max = stats[5];
         } else {
             max = 1000;
         }
-
+        
         var x = Math.floor(Math.random() * max);
 
 
@@ -79,7 +79,8 @@ function randomizer(stats, user_id, balance) {
         tile.querySelector('img').src = `img/${symbol}`;
     }
     spin_animation();
-    check_win(user_id, balance);
+    winamount = check_win();
+    update_balance(20, winamount);
 }
 
 function spin_animation() {
@@ -89,6 +90,7 @@ function spin_animation() {
 
     console.log(tile_height);
     console.log(total_tiles);
+
 
     let totalscroll = tile_height * (total_tiles - 4);
     let delay = 0;
@@ -114,7 +116,7 @@ function spin_animation() {
     }
 }
 
-function check_win(user_id, balance) {
+function check_win() {
     const containers = document.getElementsByClassName("display");
     console.log(containers);
     let win = 0;
@@ -214,27 +216,46 @@ function check_win(user_id, balance) {
     setTimeout(() => {
         document.getElementById("win").innerHTML = `$${win}`;
     }, 4700);
-    update_balance(user_id, balance);
+   return win;
 }
 
-function update_balance(user_id, newBalance) {
+function update_balance(bet, winamount) {
 
-    fetch(`/${user_id}/updateBalance`, {
+    fetch(`/updateBalance`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ balance: newBalance })
+        body: JSON.stringify({ winamount: winamount, bet : bet })
     })
-        console.log("hehe")
-        .then(response => response.json())
+        
+        .then(response=>response.json())
         .then(data => {
             if (data.success) {
                 console.log(data);
-                document.getElementById('balance').innerHTML = `Balance:$${data.balance}`;
+                document.getElementById('balance').innerHTML = `$${data.balance}`;
             } else {
                 console.error("Error updating balance", data.message);
             }
         }
         )
+}
+
+function updateSlider(stat, id){
+    if (id==1){
+        document.getElementById("stat1").innerHTML =stat;
+    }else if (id==2){
+        document.getElementById("stat2").innerHTML =stat;
+    }else if (id==3){
+        document.getElementById("stat3").innerHTML =stat;
+    }else if (id==4){
+        document.getElementById("stat4").innerHTML =stat;
+    }else if (id==5){
+        document.getElementById("stat5").innerHTML =stat;
+    }else if (id==6){
+        document.getElementById("stat6").innerHTML =stat;
+    }else if (id==7){
+        document.getElementById("stat7").innerHTML =stat;
     }
+
+}

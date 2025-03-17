@@ -18,6 +18,7 @@
 
     <section class="content">
         <div class="slot-machine">
+            <div class ="slot_view">
             <div class="display">
                 <div class="tile"><image src="img/wild.png"></image></div>
                 <div class="tile"><image src="img/cross4.png"></image></div>
@@ -107,6 +108,7 @@
                 <div class="tile"><image src="img/cross.png"></image></div>
                 <div class="tile"><image src="img/wings.jpg"></image></div>
                 <div class="tile"><image src="img/wild.png"></image></div>
+                </div>
             </div>
             </div>
             <div class="controls">
@@ -114,9 +116,39 @@
                 <% @stats.each do |stat| %>
                     <% @stat_list.append(stat["chans"])%>
                 <% end %>
+                
 
-                <button onclick="randomizer(<%= @stat_list %>,<%= session[:user]['id'] %>,<%= @balance %>)">Spin</button>
+                <button onclick="randomizer(<%= @stat_list %>)">Spin</button>
                 <button>Max Bet</button>
+                <button onclick = "window.location.href='/logout'">Logout</button>
+
+                <% if (session[:user]["admin"]==1)%>
+                <h3>Change stats</h3>
+                <form action ="/change_stats" post>
+                    <h4>Cross</h4>
+                    <span id="stat1">6 </span> 
+                    <input type = "range" min ="0" max="300" value="50" class="slider" name="statcross" onInput = "updateSlider(this.value, 1)">
+                    <h4>Heart</h4>
+                    <span id="stat2">6 </span>
+                    <input type = "range" min ="0" max="300" value="50" class="slider" name="statheart" onInput = "updateSlider(this.value, 2)">
+                    <h4>Star</h4>
+                    <span id="stat3">6 </span>
+                    <input type = "range" min ="0" max="300" value="50" class="slider" name="statstar" onInput = "updateSlider(this.value, 3)">
+                    <h4>Cloud</h4>
+                    <span id="stat4">6 </span>
+                    <input type = "range" min ="0" max="300" value="50" class="slider" name="statcloud" onInput = "updateSlider(this.value, 4)">
+                    <h4>Wing</h4>
+                    <span id="stat5">6 </span>
+                    <input type = "range" min ="0" max="300" value="50" class="slider" name="statwing" onInput = "updateSlider(this.value, 5)">
+                    <h4>Nun</h4>
+                    <span id="stat6">6 </span>
+                    <input type = "range" min ="0" max="300" value="50" class="slider" name="statnun" onInput = "updateSlider(this.value, 6)">
+                    <h4>Wild</h4>
+                    <span id="stat7">6 </span>
+                    <input type = "range" min ="0" max="300" value="50" class="slider" name="statwild" onInput = "updateSlider(this.value, 7)">
+                    <button type= "submit"> Submit </button>
+                </form>
+                <%end%>
             </div>
             <div class="info">
                 <div class = "info_bla">

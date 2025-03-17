@@ -71,7 +71,7 @@ header .buttons button:hover {
 
 .content {
   background-color: white;
-  height: 900px;
+  height: 1315px;
   width: 1000px;
   padding: 20px;
   text-align: center;
@@ -82,14 +82,9 @@ header .buttons button:hover {
 
 .slot-machine {
   width: 900px;
-  height:450px;
+  height: 450px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  overflow-y: hidden;
-  position: relative;
+  
 }
 
 .slot-machine .display {
@@ -99,7 +94,7 @@ header .buttons button:hover {
   transition: transform 2s ease-out;
 }
 
-.slot-machine .tile {
+.slot-machine .slot_view .tile {
   height: 150px;
   width: 180px;
   background-color: #87CEFA;
@@ -142,6 +137,17 @@ header .buttons button:hover {
   justify-content: space-between;
   width: 100%;
   margin-top: 20px;
+}
+
+.slot_view{
+  height:450px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  overflow-y: hidden;
+  position: relative;
+
 }
 
 .info_bla{
