@@ -242,20 +242,34 @@ function update_balance(bet, winamount) {
 }
 
 function updateSlider(stat, id){
+    stat_percent=parseInt(stat)/10;
+    stat_str= `${stat_percent}%`
+    
     if (id==1){
-        document.getElementById("stat1").innerHTML =stat;
+        document.getElementById("stat1").innerHTML =stat_str;
     }else if (id==2){
-        document.getElementById("stat2").innerHTML =stat;
+        document.getElementById("stat2").innerHTML =stat_str;
     }else if (id==3){
-        document.getElementById("stat3").innerHTML =stat;
+        document.getElementById("stat3").innerHTML =stat_str;
     }else if (id==4){
-        document.getElementById("stat4").innerHTML =stat;
+        document.getElementById("stat4").innerHTML =stat_str;
     }else if (id==5){
-        document.getElementById("stat5").innerHTML =stat;
+        document.getElementById("stat5").innerHTML =stat_str;
     }else if (id==6){
-        document.getElementById("stat6").innerHTML =stat;
-    }else if (id==7){
-        document.getElementById("stat7").innerHTML =stat;
+        document.getElementById("stat6").innerHTML =stat_str;
     }
-
+    value1 = document.getElementById("stat1").innerHTML.trim();
+    value2 = document.getElementById("stat2").innerHTML.trim();
+    value3 = document.getElementById("stat3").innerHTML.trim();
+    value4 = document.getElementById("stat4").innerHTML.trim();
+    value5 = document.getElementById("stat5").innerHTML.trim();
+    value6 = document.getElementById("stat6").innerHTML.trim();
+    wild_stat = 100 - parseFloat(value1)- parseFloat(value2)- parseFloat(value3)- parseFloat(value4)- parseFloat(value5)- parseFloat(value6);
+    document.getElementById("stat7").innerHTML = `${wild_stat}%`;
+    if (wild_stat < 0){
+        document.getElementById("odds_knapp").style.display="none";
+    }else {
+        document.getElementById("odds_knapp").style.display="block";
+    }
+        
 }

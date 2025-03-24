@@ -96,7 +96,27 @@ class App < Sinatra::Base
 
     end
 
+    post'/change_stats' do
 
+        statheart_tot=(params[:statheart]).to_i+(params[:statcross]).to_i
+        statstar_tot= statheart_tot+ (params[:statstar]).to_i
+        statcloud_tot= statstar_tot+ (params[:statcloud]).to_i
+        statwing_tot=  statcloud_tot+ (params[:statwing]).to_i
+        statnun_tot= statwing_tot+ params[:statnun].to_i
+
+    
+
+        db.execute('UPDATE stats SET chans = ?  WHERE id = 1',[params[:statcross]])
+        db.execute('UPDATE stats SET chans = ?  WHERE id = 2',[statheart_tot])
+        db.execute('UPDATE stats SET chans = ?  WHERE id = 3',[statstar_tot])
+        db.execute('UPDATE stats SET chans = ?  WHERE id = 4',[statcloud_tot])
+        db.execute('UPDATE stats SET chans = ?  WHERE id = 5',[statwing_tot])
+        db.execute('UPDATE stats SET chans = ?  WHERE id = 6',[statnun_tot])
+        redirect('/slot')
+    end
 
 
 end
+
+
+
