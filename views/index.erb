@@ -11,7 +11,7 @@
     <header>
         <h1>Angel Slots</h1>
         <div class="buttons">
-            <button id="accountBtn">My Account</button>
+            <button onclick = "window.location.href='/account/<%=session[:user]["id"]%>'">My account</button>
             <button id="depositBtn">Deposit Funds</button>
         </div>
     </header>
@@ -148,7 +148,12 @@
                     <button type= "submit" id="odds_knapp"> Submit </button>
                 </form>
                 <%end%>
+
             </div>
+           
+
+
+
             <div class="info">
                 <div class = "info_bla">
                     <strong>Bet:</strong>

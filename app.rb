@@ -66,6 +66,16 @@ class App < Sinatra::Base
         session[:user] = nil
         redirect('/login')
     end
+
+    get '/account/:id' do |id|
+        if session[:user]
+            @history= db.execute('SELECT * FROM history WHERE user_id=?',[session[:user]["id"]])
+            p(@history)
+            erb(:account)
+        else
+            redirect('/login')
+        end
+    end
     
 
     post '/register' do 
@@ -90,6 +100,7 @@ class App < Sinatra::Base
         if user 
             db.execute('UPDATE users SET balance = ? WHERE id = ?', [balance, session[:user]["id"]]) 
             { success: true, message: "Balance updated", balance: balance }.to_json
+            db.execute('INSERT INTO history (user_id, win_amount) VALUES(?, ?)', [user["id"], request_payload["winamount"] - request_payload["bet"]])
         else
             { success: false, message: "User not found" }.to_json
         end

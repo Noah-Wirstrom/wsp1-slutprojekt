@@ -12,6 +12,7 @@ class Seeder
   def self.drop_tables
     db.execute('DROP TABLE IF EXISTS users')
     db.execute('DROP TABLE IF EXISTS stats')
+    db.execute('DROP TABLE IF EXISTS history')
   
   end
   def self.create_tables
@@ -28,6 +29,12 @@ class Seeder
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       chans INTEGER NOT NULL 
+    )')
+
+    db.execute('CREATE TABLE history (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL, 
+      win_amount INTEGER NOT NULL
     )')
   end
 

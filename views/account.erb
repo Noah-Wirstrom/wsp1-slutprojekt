@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitt Casino - Konto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="account-container">
+        <h1>Mitt Konto</h1>
+        <div class="account-info">
+            <p><strong>Användarnamn:</strong> CasinoKing</p>
+            
+            <div>
+                <h1>history</h1>
+             <%@history.each do |h| %>
+                 <p> <%=h["win_amount"] %></p>
+             <%end%>
+
+            </div>
+
+        </div>
+          <button onclick = "window.location.href='/logout'">Logout</button>
+    </div>
+</body>
+</html>
