@@ -31,6 +31,7 @@ class App < Sinatra::Base
         redirect '/login' if session[:user].nil?
         @stats= db.execute('SELECT chans FROM stats')
         @balance = session[:user]['balance']
+        @jackpots = db.execute('SELECT * FROM jackpots')
         
         erb(:"index")
     end
@@ -126,6 +127,19 @@ class App < Sinatra::Base
         redirect('/slot')
     end
 
+
+    get '/jackpot/:id' do |id|
+        if session[:user]
+            jackpot = db.execute('SELECT * FROM jackpots WHERE id = ?', [id]).first
+            if jackpot
+                db.execute('INSERT INTO jackpot_to_user(user_id, jackpot_id) VALUES (?, ?)',[session[:user]["id"], id])
+                db.execute('UPDATE jackpots SET value = ? WHERE id = ?', [jackpot["value"] + 1, id])
+            end
+            redirect('/slot')
+        else
+            redirect('/login')
+        end
+    end 
 
 end
 

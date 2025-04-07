@@ -13,6 +13,8 @@ class Seeder
     db.execute('DROP TABLE IF EXISTS users')
     db.execute('DROP TABLE IF EXISTS stats')
     db.execute('DROP TABLE IF EXISTS history')
+    db.execute('DROP TABLE IF EXISTS jackpots')
+    db.execute('DROP TABLE IF EXISTS jackpot_to_user')
   
   end
   def self.create_tables
@@ -36,6 +38,20 @@ class Seeder
       user_id INTEGER NOT NULL, 
       win_amount INTEGER NOT NULL
     )')
+
+    db.execute('CREATE TABLE jackpots (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL, 
+      value INTEGER NOT NULL,
+      price INTEGER 
+    )')
+
+    db.execute('CREATE TABLE jackpot_to_user (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL, 
+      jackpot_id INTEGER NOT NULL
+      
+    )')
   end
 
 
@@ -52,6 +68,8 @@ class Seeder
     db.execute('INSERT INTO stats(name, chans) VALUES("wing", 825)')
     db.execute('INSERT INTO stats(name, chans) VALUES("nun", 900)')
     db.execute('INSERT INTO stats(name, chans) VALUES("wild", 1000)')
+
+    db.execute('INSERT INTO jackpots(name, value, price) VALUES("Gold stake", 10000, 10)')
 
   end
   

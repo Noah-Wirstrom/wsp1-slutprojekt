@@ -167,10 +167,22 @@
                     <strong>Balance:</strong>
                     <p id="balance"> $<%=@balance%></p>
             </div>
+
+            <div class="jackpot">
+                <%@jackpots.each do |jackpot|%>
+                    <div class="jackpot">
+                        <h3><%= jackpot["name"]%></h3>
+                        <h3 class="jackpot_win">Win: <%= jackpot["value"]%> </h3>
+                        <h3 class="jackpot_price">Price: <%= jackpot["price"]%> </h3>
+                        <button class="join" onclick="window.location.href='/jackpot/<%= jackpot["id"] %>'"> Join </button>
+                    </div>
+                <% end %>
+            </div>
+
         </div>
     </section>
 
-    <<div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-overlay" id="modalOverlay"></div>
 
     <div class="modal" id="depositModal">
         <h3>Deposit Funds</h3>
